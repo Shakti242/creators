@@ -2,7 +2,10 @@
   "name": "app",
   "private": true,
   "devDependencies": {
-    "esbuild": "^0.25.1"
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.1",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.15"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
@@ -11,7 +14,6 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.13",
-    "@tailwindcss/cli": "^4.0.15",
-    "tailwindcss": "^4.0.15"
+    "@tailwindcss/cli": "^4.0.15"
   }
 }
