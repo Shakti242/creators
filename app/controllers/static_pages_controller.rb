@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
+    layout 'marketing'
+  
     def root
-        render :root
+      render :root
     end
-end
+  end

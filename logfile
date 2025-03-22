@@ -1,0 +1,10 @@
+2025-03-22 14:16:58.675 EDT [76438] LOG:  starting PostgreSQL 14.17 (Homebrew) on aarch64-apple-darwin24.2.0, compiled by Apple clang version 16.0.0 (clang-1600.0.26.6), 64-bit
+2025-03-22 14:16:58.680 EDT [76438] LOG:  listening on IPv6 address "::1", port 5432
+2025-03-22 14:16:58.680 EDT [76438] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-03-22 14:16:58.681 EDT [76438] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-03-22 14:16:58.684 EDT [76439] LOG:  database system was shut down at 2025-03-22 14:16:50 EDT
+2025-03-22 14:16:58.686 EDT [76438] LOG:  database system is ready to accept connections
+2025-03-22 14:18:10.534 EDT [76975] FATAL:  database "creators_development" does not exist
+2025-03-22 14:18:11.127 EDT [76976] FATAL:  database "creators_development" does not exist
+2025-03-22 14:18:28.931 EDT [77013] FATAL:  database "creators_development" does not exist
+2025-03-22 14:18:28.933 EDT [77014] FATAL:  database "creators_development" does not exist
