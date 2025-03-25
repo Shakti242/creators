@@ -67,3 +67,5 @@ gem "devise", "~> 4.9"
 gem "sidekiq", "~> 8.0"
 
 gem "stripe", "~> 13.5"
+
+gem "byebug", "~> 11.1", group: :development

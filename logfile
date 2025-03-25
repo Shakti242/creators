@@ -8,3 +8,7 @@
 2025-03-22 14:18:11.127 EDT [76976] FATAL:  database "creators_development" does not exist
 2025-03-22 14:18:28.931 EDT [77013] FATAL:  database "creators_development" does not exist
 2025-03-22 14:18:28.933 EDT [77014] FATAL:  database "creators_development" does not exist
+2025-03-22 18:36:37.500 EDT [76438] LOG:  received smart shutdown request
+2025-03-22 18:36:37.505 EDT [76438] LOG:  background worker "logical replication launcher" (PID 76445) exited with exit code 1
+2025-03-22 18:36:37.507 EDT [76440] LOG:  shutting down
+2025-03-22 18:36:37.534 EDT [76438] LOG:  database system is shut down
