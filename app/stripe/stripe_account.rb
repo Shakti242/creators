@@ -54,7 +54,7 @@ class StripeAccount
         product_description: 'Digital creations and content',
         mcc: "5818",
         support_email: account.user.email,
-        url: 'https://cjav.dev',
+        url: '1234',
       },
       capabilities: {
         card_payments: { requested: true },
@@ -116,7 +116,9 @@ class StripeAccount
           us_domestic_wire: { requested: true },
         }
       },
-    }, header)
+    },{
+      stripe_account: account.stripe_id,
+    })
 
     account.update(financial_account_id: financial_account.id)
   end

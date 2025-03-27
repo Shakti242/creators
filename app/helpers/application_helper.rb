@@ -9,10 +9,13 @@ module ApplicationHelper
   def menu_items
     [{
       name: 'Dashboard',
-      path: dashboard_path,
+      path: '/dashboard',
     }, {
       name: 'Accounts',
-      path: accounts_path,
+      path: '/accounts',
+    }, {
+      name: 'Products',
+      path: '/products',
     }].map do |item|
       {
         name: item[:name],
