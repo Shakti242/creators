@@ -17,8 +17,9 @@
               type="text"
               name="store[subdomain]"
               id="subdomain"
-              value="<%= @store.subdomain %>"
-              autocomplete="subdomain" class="flex-1 focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 rounded-none rounded-l-md sm:text-sm border-gray-300">
+              value="<%= @store&.subdomain %>"
+              autocomplete="subdomain" 
+              class="flex-1 focus:ring-blue-500 focus:border-blue-500 block w-full min-w-0 rounded-none rounded-l-md sm:text-sm border-gray-300">
             <span class="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">.creatorplatform.xyz/</span>
           </div>
         </div>
@@ -32,8 +33,9 @@
               type="color"
               name="store[primary_color]"
               id="primary_color"
-              value="<%= @store.primary_color %>"
-              autocomplete="primary_color" class="">
+              value="<%= @store&.primary_color %>"
+              autocomplete="primary_color" 
+              class="">
           </div>
         </div>
       </div>
@@ -46,8 +48,9 @@
               type="color"
               name="store[secondary_color]"
               id="secondary_color"
-              value="<%= @store.secondary_color %>"
-              autocomplete="secondary_color" class="">
+              value="<%= @store&.secondary_color %>"
+              autocomplete="secondary_color" 
+              class="">
           </div>
         </div>
       </div>
