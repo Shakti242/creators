@@ -20,7 +20,7 @@ class StripeProduct
   
       # Check if photo is attached before processing it
       image_url = if product.photo.attached?
-                    product.photo.representation(:medium).processed.url
+                    product.photo.variant(:medium).processed.url
                   else
                     # Use a default image URL if no photo is attached
                     "https://example.com/path/to/default_image.png"  # Replace with your default image URL

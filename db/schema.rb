@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_03_27_173807) do
+ActiveRecord::Schema[8.1].define(version: 2025_03_28_202043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,6 +60,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_27_173807) do
     t.string "name"
     t.bigint "product_id", null: false
     t.datetime "updated_at", null: false
+    t.integer "views_count"
     t.index ["product_id"], name: "index_attachments_on_product_id"
   end
 
@@ -85,6 +86,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_27_173807) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
+  create_table "stores", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "primary_color"
+    t.string "secondary_color"
+    t.string "subdomain"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_stores_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at"
@@ -107,4 +118,5 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_27_173807) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attachments", "products"
   add_foreign_key "products", "users"
+  add_foreign_key "stores", "users"
 end
