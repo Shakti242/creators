@@ -11,15 +11,19 @@ class StoresController < ApplicationController
   end
 
   def update
-    @store = current_user.store
+    # Ensure user has an account
+    account = current_user.account || Account.create(user: current_user)
+    # Ensure user has a store
+    @store = current_user.store || Store.create(user: current_user, account: account)
     if @store.update(store_params)
-      service = StripeAccount.new(current_user.account)
+      service = StripeAccount.new(account)
       service.update_account_branding
-      redirect_to store_path
+      redirect_to store_path, notice: "Store updated successfully."
     else
       render :edit
     end
   end
+
 
   private
 

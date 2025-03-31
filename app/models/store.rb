@@ -23,9 +23,9 @@ class Store < ApplicationRecord
   belongs_to :user
   has_many :products, through: :user
   has_many :customers, through: :products
+  belongs_to :account, optional: true  # Optional if not every store has an account
 
   def self.find_by_request(request)
     where(subdomain: request.subdomain).first
   end
-  
 end

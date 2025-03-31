@@ -3,6 +3,10 @@ class StripeAccount
   attr_reader :account
 
   def initialize(account)
+    unless account
+      Rails.logger.error "StripeAccount initialized with nil account"
+      raise ArgumentError, "Account cannot be nil"
+    end
     @account = account
   end
 
@@ -22,19 +26,31 @@ class StripeAccount
     amount = payments_balances.available.first.amount
     @payout ||= Stripe::Payout.create({
       amount: amount,
-      currency: 'usd',
+      currency: 'usd'
     }, header)
   end
 
   def update_account_branding
+    unless account
+      Rails.logger.error "update_account_branding called with nil account"
+      return
+    end
+
     store = account.store
+    unless store
+      Rails.logger.warn "Account store is missing for account ID: #{account.id}"
+      return
+    end
+
+    Rails.logger.info "Updating account branding": store
     return if store.primary_color.nil? || store.secondary_color.nil?
+
     Stripe::Account.update(account.stripe_id, {
       settings: {
         branding: {
           primary_color: store.primary_color,
-          secondary_color: store.secondary_color,
-        },
+          secondary_color: store.secondary_color
+        }
       }
     }, header)
   end
@@ -48,20 +64,20 @@ class StripeAccount
       email: account.user.email,
       business_type: 'individual',
       individual: {
-        email: account.user.email,
+        email: account.user.email
       },
       business_profile: {
         product_description: 'Digital creations and content',
         mcc: "5818",
         support_email: account.user.email,
-        url: '1234',
+        url: '1234'
       },
       capabilities: {
         card_payments: { requested: true },
         transfers: { requested: true },
         # Requested capabilities
         treasury: { requested: true },
-        card_issuing: { requested: true },
+        card_issuing: { requested: true }
       },
     )
 
@@ -81,9 +97,9 @@ class StripeAccount
           account_number: account_info.account_number,
           routing_number: account_info.routing_number,
           country: 'US',
-          currency: 'usd',
+          currency: 'usd'
         },
-        default_for_currency: true,
+        default_for_currency: true
       }
     )
     account.update(external_account_id: bank_account.id)
@@ -92,7 +108,7 @@ class StripeAccount
   def financial_account
     @financial_account ||= Stripe::Treasury::FinancialAccount.retrieve({
       id: account.financial_account_id,
-      expand: ['financial_addresses.aba.account_number'],
+      expand: ['financial_addresses.aba.account_number']
     }, header)
   end
 
@@ -109,15 +125,15 @@ class StripeAccount
         intra_stripe_flows: { requested: true },
         outbound_payments: {
           ach: { requested: true },
-          us_domestic_wire: { requested: true },
+          us_domestic_wire: { requested: true }
         },
         outbound_transfers: {
           ach: { requested: true },
-          us_domestic_wire: { requested: true },
+          us_domestic_wire: { requested: true }
         }
-      },
-    },{
-      stripe_account: account.stripe_id,
+      }
+    }, {
+      stripe_account: account.stripe_id
     })
 
     account.update(financial_account_id: financial_account.id)
@@ -129,7 +145,7 @@ class StripeAccount
       refresh_url: accounts_url,
       return_url: accounts_url,
       type: 'account_onboarding',
-      collect: 'eventually_due',
+      collect: 'eventually_due'
     }).url
   end
 

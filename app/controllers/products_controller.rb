@@ -10,27 +10,25 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
   end
 
   def create
     @product = current_user.products.new(product_params)
     if @product.save
-      service = StripeProduct.new(product_params, @product)
+      service = StripeProduct.new(params, @product)
       service.create_product
-      redirect_to @product, notice: 'Product created successfully.'
+      redirect_to @product
     else
       render :new
     end
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :photo, default_price_data: [:currency, :amount])
+    params.require(:product).permit(:name, :description, :photo)
   end
 end

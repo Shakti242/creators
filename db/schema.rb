@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_03_28_202043) do
+ActiveRecord::Schema[8.1].define(version: 2025_03_29_173634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -52,6 +52,13 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_28_202043) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attachment_views", force: :cascade do |t|
+    t.bigint "attachment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachment_id"], name: "index_attachment_views_on_attachment_id"
   end
 
   create_table "attachments", force: :cascade do |t|
@@ -116,6 +123,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_28_202043) do
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attachment_views", "attachments"
   add_foreign_key "attachments", "products"
   add_foreign_key "products", "users"
   add_foreign_key "stores", "users"

@@ -23,6 +23,10 @@ module Creators
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     config.hosts = nil
+    config.after_initialize do
+      ActiveStorage::Current.url_options = { host: 'http://localhost:3000' } # Replace with your actual host
+    end
+    
 
     # Configuration for the application, engines, and railties goes here.
     #
