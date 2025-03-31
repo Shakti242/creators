@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_03_29_173634) do
+ActiveRecord::Schema[8.1].define(version: 2025_03_31_034424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,12 +94,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_29_173634) do
   end
 
   create_table "stores", force: :cascade do |t|
+    t.bigint "account_id"
     t.datetime "created_at", null: false
     t.string "primary_color"
     t.string "secondary_color"
     t.string "subdomain"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["account_id"], name: "index_stores_on_account_id"
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 

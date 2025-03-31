@@ -1,5 +1,8 @@
 require 'constraints/domain_constraint'
 Rails.application.routes.draw do
+  get "checkoutrails/generate"
+  get "checkoutrails/controller"
+  get "checkoutrails/Checkout"
   get "products/index"
   get "products/show"
   get "products/new"
