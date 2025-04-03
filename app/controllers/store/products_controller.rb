@@ -1,10 +1,8 @@
-# module Stores
-#     class ProductsController < StoreBaseController
-#       def index
-#         @products = @store.products
-#       end
-#       def show
-#         @product = @store.products.find(params[:id])
-#       end
-#     end
-#   end
+# app/controllers/stores/products_controller.rb
+module Stores
+  class ProductsController < ApplicationController
+    def index
+      @products = Product.all
+    end
+  end
+end

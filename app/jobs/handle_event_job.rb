@@ -29,9 +29,9 @@ class HandleEventJob < ApplicationJob
   def handle_checkout_session_completed(stripe_event)
     session = Stripe::Checkout::Session.retrieve({
       id: stripe_event.data.object.id,
-      expand: ['line_items'],
+      expand: ['line_items']
     }, {
-      stripe_account: stripe_event.account,
+      stripe_account: stripe_event.account
     })
 
     return if session.payment_status != 'paid'

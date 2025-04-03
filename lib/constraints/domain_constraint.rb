@@ -1,5 +1,6 @@
+# app/constraints/domain_constraint.rb
 class DomainConstraint
   def self.matches?(request)
-    !Store.find_by_request(request).nil?
+    request.subdomain.present? && request.subdomain == 'your_store_subdomain'
   end
 end

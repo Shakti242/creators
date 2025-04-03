@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_03_31_034424) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_31_034424) do
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
+    t.integer "views_count", default: 0
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -67,8 +68,29 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_31_034424) do
     t.string "name"
     t.bigint "product_id", null: false
     t.datetime "updated_at", null: false
-    t.integer "views_count"
     t.index ["product_id"], name: "index_attachments_on_product_id"
+  end
+
+  create_table "customer_products", force: :cascade do |t|
+    t.string "checkout_session_id"
+    t.datetime "created_at", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id", "product_id", "checkout_session_id"], name: "customer_product_session_index", unique: true
+    t.index ["customer_id"], name: "index_customer_products_on_customer_id"
+    t.index ["product_id"], name: "index_customer_products_on_product_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "session_token"
+    t.bigint "store_id", null: false
+    t.string "stripe_id"
+    t.datetime "token_expires_at"
+    t.datetime "updated_at", null: false
+    t.index ["store_id"], name: "index_customers_on_store_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -127,6 +149,9 @@ ActiveRecord::Schema[8.1].define(version: 2025_03_31_034424) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attachment_views", "attachments"
   add_foreign_key "attachments", "products"
+  add_foreign_key "customer_products", "customers"
+  add_foreign_key "customer_products", "products"
+  add_foreign_key "customers", "stores"
   add_foreign_key "products", "users"
   add_foreign_key "stores", "users"
 end

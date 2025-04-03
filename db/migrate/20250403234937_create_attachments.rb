@@ -3,7 +3,7 @@ class CreateAttachments < ActiveRecord::Migration[8.1]
     create_table :attachments do |t|
       t.references :product, null: false, foreign_key: true
       t.string :name
-      t.string :file
+      t.integer :views_count
 
       t.timestamps
     end
