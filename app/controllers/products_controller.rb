@@ -10,20 +10,24 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @product = current_user.products.new
   end
 
   def create
     @product = current_user.products.new(product_params)
+
     if @product.save
-      service = StripeProduct.new(params, @product)
-      service.create_product
-      redirect_to @product
+      # No need to call StripeProduct or anything related to Stripe.
+      # You can add any additional logic here, such as handling the image or other product actions.
+
+      redirect_to @product, notice: 'Product created successfully.'
     else
       render :new
     end
   end
 
   def edit
+    @product = Product.find(params[:id])
   end
 
   private

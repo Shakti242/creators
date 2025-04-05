@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_04_031341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -32,7 +32,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
-    t.integer "views_count", default: 0
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -58,16 +57,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
   create_table "attachment_views", force: :cascade do |t|
     t.bigint "attachment_id", null: false
     t.datetime "created_at", null: false
+    t.bigint "customer_id", null: false
     t.datetime "updated_at", null: false
     t.index ["attachment_id"], name: "index_attachment_views_on_attachment_id"
+    t.index ["customer_id"], name: "index_attachment_views_on_customer_id"
   end
 
   create_table "attachments", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "file"
     t.string "name"
     t.bigint "product_id", null: false
     t.datetime "updated_at", null: false
+    t.integer "views_count"
     t.index ["product_id"], name: "index_attachments_on_product_id"
   end
 
@@ -77,7 +78,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
     t.bigint "customer_id", null: false
     t.bigint "product_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id", "product_id", "checkout_session_id"], name: "customer_product_session_index", unique: true
+    t.index ["customer_id", "product_id", "checkout_session_id"], name: "idx_on_customer_id_product_id_checkout_session_id_28f7393e38", unique: true
     t.index ["customer_id"], name: "index_customer_products_on_customer_id"
     t.index ["product_id"], name: "index_customer_products_on_product_id"
   end
@@ -118,6 +119,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
   create_table "stores", force: :cascade do |t|
     t.bigint "account_id"
     t.datetime "created_at", null: false
+    t.string "domain"
+    t.string "name"
     t.string "primary_color"
     t.string "secondary_color"
     t.string "subdomain"
@@ -148,6 +151,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_03_230641) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "attachment_views", "attachments"
+  add_foreign_key "attachment_views", "customers"
   add_foreign_key "attachments", "products"
   add_foreign_key "customer_products", "customers"
   add_foreign_key "customer_products", "products"

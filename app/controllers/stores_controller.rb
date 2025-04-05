@@ -3,8 +3,12 @@ class StoresController < ApplicationController
   layout 'application'
 
   def show
-    @store = current_user.store
+    @store = Store.find_by(user_id: current_user.id)  # Assuming you're finding the store by user_id
+    if @store.nil?
+      redirect_to root_path, alert: "Store not found"
+    end
   end
+
 
   def edit
     @store = current_user.store

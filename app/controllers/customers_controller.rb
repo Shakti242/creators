@@ -3,7 +3,6 @@ class CustomersController < ApplicationController
 
   def index
     Rails.logger.debug("Current User: #{current_user.inspect}")
-
     @customers = current_user.store.customers.all
   end
 

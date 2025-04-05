@@ -3,13 +3,13 @@
 # Table name: customers
 #
 #  id               :integer          not null, primary key
-#  stripe_id        :string
-#  email            :string           not null
-#  store_id         :integer          not null
 #  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  email            :string           not null
 #  session_token    :string
+#  store_id         :integer          not null
+#  stripe_id        :string
 #  token_expires_at :datetime
+#  updated_at       :datetime         not null
 #
 # Indexes
 #

@@ -1,7 +1,5 @@
 module ApplicationHelper
   def gravatar_url
-    return "https://secure.gravatar.com/avatar/default.png" unless current_user&.email
-
     gravatar_id = Digest::MD5.hexdigest(current_user.email.downcase)
     "https://secure.gravatar.com/avatar/#{gravatar_id}"
   end
