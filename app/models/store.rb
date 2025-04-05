@@ -10,6 +10,8 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  account_id      :integer
+#  name            :string
+#  domain          :string
 #
 # Indexes
 #

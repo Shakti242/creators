@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_04_04_031341) do
+ActiveRecord::Schema[8.1].define(version: 2025_04_05_004554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,6 +70,27 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_04_031341) do
     t.datetime "updated_at", null: false
     t.integer "views_count"
     t.index ["product_id"], name: "index_attachments_on_product_id"
+  end
+
+  create_table "cardholders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.json "data"
+    t.string "email"
+    t.string "name"
+    t.string "stripe_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_cardholders_on_user_id"
+  end
+
+  create_table "cards", force: :cascade do |t|
+    t.bigint "cardholder_id", null: false
+    t.datetime "created_at", null: false
+    t.json "data"
+    t.string "last4"
+    t.string "stripe_id"
+    t.datetime "updated_at", null: false
+    t.index ["cardholder_id"], name: "index_cards_on_cardholder_id"
   end
 
   create_table "customer_products", force: :cascade do |t|
@@ -153,6 +174,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_04_04_031341) do
   add_foreign_key "attachment_views", "attachments"
   add_foreign_key "attachment_views", "customers"
   add_foreign_key "attachments", "products"
+  add_foreign_key "cardholders", "users"
+  add_foreign_key "cards", "cardholders"
   add_foreign_key "customer_products", "customers"
   add_foreign_key "customer_products", "products"
   add_foreign_key "customers", "stores"

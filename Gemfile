@@ -78,3 +78,5 @@ gem "concurrent-ruby", "= 1.3.4"
 
 gem "annotate", "~> 2.6", group: :development
 
+
+gem "letter_opener", "~> 1.10", group: :development

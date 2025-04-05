@@ -22,6 +22,10 @@ module ApplicationHelper
     {
       name: 'Customers',
       path: '/customers'
+    },
+    {
+      name: 'Cardholders',
+      path: '/cardholders'
     }
   ].map do |item|
       {
