@@ -74,7 +74,7 @@ gem "image_processing", "~> 1.14"
 
 gem "aws-sdk-s3", "~> 1.114"
 
-gem "concurrent-ruby", "= 1.3.4"
+gem "concurrent-ruby", "1.3.5"
 
 gem "annotate", "~> 2.6", group: :development
 
