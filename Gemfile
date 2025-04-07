@@ -72,7 +72,7 @@ gem "byebug", "~> 11.1", group: :development
 
 gem "image_processing", "~> 1.14"
 
-gem "aws-sdk-s3", "~> 1.114"
+gem "aws-sdk-s3", "~> 1.183"
 
 gem "concurrent-ruby", "= 1.3.4"
 
